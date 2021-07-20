@@ -1,0 +1,28 @@
+version: '0.1'
+
+services:
+
+  mongo:
+  container_name: knote-mongo
+  networks:
+    - knote
+  ports:
+    - "27017:27017"
+  hostname: mongo
+  image: mongo:latest
+  volumes:
+    - ./data/db:/data/db
+
+  java:
+  container_name: knote-java
+  networks:
+    - knote
+  ports:
+    - "8080:8080"
+  hostname: knote-java
+  depends_on:
+    - mongo
+  image: knote-java
+  networks:
+gateway:
+driver: "bridge"
